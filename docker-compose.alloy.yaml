@@ -1,0 +1,14 @@
+services:
+  web:
+    image: cirrusci/flutter:2.8.1
+    working_dir: /workspace
+    network_mode: host
+    volumes:
+      - .:/workspace
+    environment:
+      IS_ALLOY: ${IS_ALLOY:-false}
+    command: >
+      bash -lc "git config --global --add safe.directory /workspace;
+      flutter config --enable-web --no-analytics;
+      flutter pub get;
+      flutter run -d web-server --web-hostname 0.0.0.0 --web-port 3000"
